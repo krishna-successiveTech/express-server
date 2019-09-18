@@ -1,13 +1,12 @@
-var permissions = {
-  'getUsers': {
-    all: ['head-trainer'],
-    read: ['trainee', 'trainer'],
-    write: ['trainer'],
-    delete: [],
-  }
-}
+import {
+  GET_USERS,
+  HEAD_TRAINER,
+  TRAINEE,
+  TRAINER,
+  permissions
+} from "../constants";
 
-function hasPermission(moduleName, role, permissionType) {
+export default function hasPermission(moduleName, role, permissionType) {
   if (permissions[moduleName]) {
     if (permissions[moduleName][permissionType].includes(role)) {
       return true;
@@ -18,4 +17,3 @@ function hasPermission(moduleName, role, permissionType) {
     return false;
   }
 }
-hasPermission('getUsers', 'trainer', 'read');
