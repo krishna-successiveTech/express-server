@@ -1,3 +1,4 @@
+import * as bodyParser from 'body-parser';
 import * as express from 'express';
 
 export class Server {
@@ -10,6 +11,7 @@ export class Server {
 
     public bootstrap() {
         this.setupRoutes();
+        this.initBodyParser();
         return this;
     }
     public setupRoutes() {
@@ -17,6 +19,13 @@ export class Server {
         app.get('/health-check', (req, res) => {
             res.send('I am Ok');
         });
+    }
+
+    public initBodyParser() {
+        const { app } = this;
+        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.json());
+
     }
 
     public run() {
