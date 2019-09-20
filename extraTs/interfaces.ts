@@ -6,7 +6,7 @@ export interface IPermission {
         read: string[];
         write: string[];
         delete: string[];
-    }
+    };
 }
 
 export interface IUsers {

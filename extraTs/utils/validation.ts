@@ -2,8 +2,8 @@ import { IUsers } from './../interfaces';
 import { validateEmail } from './helper';
 
 export default function validateUsers(users: IUsers[]): void {
-  let validUsers: IUsers[] = [];
-  let invalidUsers: IUsers[] = [];
+  const validUsers: IUsers[] = [];
+  const invalidUsers: IUsers[] = [];
   users.forEach((userEmail) => {
     const {
       traineeEmail,

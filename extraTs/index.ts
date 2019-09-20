@@ -1,10 +1,10 @@
-import {diamond,equilateral} from "./patterns";
-import{hasPermission,validateUsers} from "./utils";
+import { diamond, equilateral } from './patterns';
+import { hasPermission, validateUsers } from './utils';
 
 diamond(4);
 equilateral(5);
 
-console.log(hasPermission("GET_USERS","trainer","write"));
+console.log(hasPermission('GET_USERS', 'trainer', 'write'));
 
 const users = [{
     traineeEmail: 'trainee1@successive.tech',

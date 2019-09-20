@@ -1,6 +1,6 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import { errorHandler, notFoundRoute } from './libs/routes';
+import { errorHandler, notFoundRoute, successHandler } from './libs/routes';
 
 import router from './router';
 export class Server {
@@ -12,8 +12,8 @@ export class Server {
     }
 
     public bootstrap() {
-        this.setupRoutes();
         this.initBodyParser();
+        this.setupRoutes();
         return this;
     }
     public setupRoutes() {
@@ -34,8 +34,8 @@ export class Server {
     }
 
     public run() {
-        const { app ,
-            config: { port} } = this;
+        const { app,
+            config: { port } } = this;
         app.listen(port, (err: any) => {
             (err) ? console.log(err) : console.log(`app is running on ${port}`);
         });
