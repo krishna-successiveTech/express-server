@@ -2,12 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import { successHandler } from '../../libs/routes';
 
 class TraineeController {
-    public static getInstance() {
-        if (!TraineeController.instance) {
-            TraineeController.instance = new TraineeController();
-        }
-        return TraineeController.instance;
-    }
 
     private static instance: TraineeController;
 
@@ -25,7 +19,6 @@ class TraineeController {
     }
 
     public create(req: Request, res: Response, next: NextFunction) {
-        console.log('>>>>>>>>>>>>>', req.body);
         const { name, id } = req.body;
         const data = [{ name, id }];
         if (!id) {
@@ -58,4 +51,4 @@ class TraineeController {
             .send(successHandler(`Successfully Deleted ${id} Trainee`, ''));
     }
 }
-export default TraineeController.getInstance();
+export default new TraineeController();
