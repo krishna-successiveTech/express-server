@@ -16,7 +16,6 @@ export default (config) => (req: Request, res: Response, next: NextFunction) => 
             if (validatedValues.length !== values.length) {
                 errors.push({
                     [key]: errMessage || `${key} is required` || 'Error',
-                    status: 400,
                 });
             }
 
@@ -24,7 +23,6 @@ export default (config) => (req: Request, res: Response, next: NextFunction) => 
                 if (typeof validatedValues[0] !== 'string') {
                     errors.push({
                         [key]: errMessage || `${key} must be a string` || 'Error',
-                        status: 400,
                     });
                 }
             }
@@ -34,25 +32,21 @@ export default (config) => (req: Request, res: Response, next: NextFunction) => 
                 if (!regex.test(validatedValues[0])) {
                     errors.push({
                         [key]: errMessage || `${key} is not valid expression` || 'Error',
-                        status: 400,
                     });
                 }
             }
 
             if (item.isObject) {
                 if (typeof validatedValues[0] !== 'object') {
-                    errors.push({
-                        key: errMessage || `${key}  must be an object` || 'Error',
-                        status: 400,
-                    });
+                    errors.push({ key: errMessage || `${key}  must be an object` || 'Error' });
                 }
             }
 
             if (item.number) {
                 if (!isNaN(validatedValues[0]) || validatedValues[0] === '' || validatedValues[0] === undefined) {
+
                     errors.push({
                         [key]: errMessage || `${key}  must be an number` || 'Error',
-                        status: 400,
                     });
                 }
             }
