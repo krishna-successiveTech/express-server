@@ -25,7 +25,6 @@ class TraineeController {
     }
 
     public create(req: Request, res: Response, next: NextFunction) {
-        console.log('>>>>>>>>>>>>>', req.body);
         const { name, id } = req.body;
         const data = [{ name, id }];
         if (!id) {
