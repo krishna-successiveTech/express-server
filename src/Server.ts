@@ -2,7 +2,9 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import { errorHandler, notFoundRoute, successHandler } from './libs/routes';
 
+import Database from './libs/Database';
 import router from './router';
+
 export class Server {
     private app: express.Express;
 
@@ -35,10 +37,14 @@ export class Server {
 
     public run() {
         const { app,
-            config: { port } } = this;
-        app.listen(port, (err: any) => {
-            (err) ? console.log(err) : console.log(`app is running on ${port}`);
+            config: { port, mongoUri } } = this;
+
+        Database.open(mongoUri).then(() => {
+            app.listen(port, (err: any) => {
+                (err) ? console.log(err) : console.log(`app is running on ${port}`);
+            });
+            return this;
         });
-        return this;
+
     }
 }
