@@ -1,9 +1,11 @@
 export default function errorHandler(err, req, res, next) {
     console.log('inside errorHandler');
-    const status = err.status || 500;
-    const message = err.message || 'error';
-    const error = err.error || 'Not Found';
-    const timestamp = new Date();
-    console.log(err);
-    res.status(err.status).send({error, message, status, timestamp});
+    const { status, message, error} = err;
+    const timestamp: Date = new Date();
+    res.status(status).send({
+        error: error || 'Not Found',
+        message: message || 'Bad Request',
+        status: status || 400,
+        timestamp,
+    });
 }
