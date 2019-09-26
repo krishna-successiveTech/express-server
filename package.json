@@ -29,6 +29,7 @@
     "start:extraTs": "tsc-watch --project . --onSuccess \"npm run nodemon\"",
     "start": "tsc-watch --project . --onSuccess \"npm run nodemon\"",
     "nodemon": "nodemon ./dist/index.js",
+    "pre-commit": "lint",
     "lint": "./node_modules/tslint/bin/tslint -c tslint.json -p tsconfig.json --exclude 'node_modules/**/*.{j,t}s'",
     "lint:fix": "npm run lint --fix"
   },
@@ -41,5 +42,10 @@
   "bugs": {
     "url": "https://github.com/krishna-successiveTech/express-server/issues"
   },
-  "homepage": "https://github.com/krishna-successiveTech/express-server#readme"
+  "homepage": "https://github.com/krishna-successiveTech/express-server#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "node node_modules/husky-tslint-pre-commit/pre-commit.js"
+    }
+  }
 }

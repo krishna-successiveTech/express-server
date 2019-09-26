@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-
+import seed from './seedData';
 export default class Database {
 
     public static open(mongoUri) {
@@ -11,6 +11,7 @@ export default class Database {
                 )
                 .then(() => {
                     console.log('Successfully Connected to Db');
+                    seed();
                     resolve();
                 })
                 .catch((err) => {

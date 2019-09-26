@@ -1,7 +1,7 @@
-export default function successHandler(message: string, data: any) {
+export default function successHandler(message: string, status: number, data: any) {
     return {
       data: data || undefined,
       message: message || 'Successful',
-      status: 'OK',
+      status: status || 200,
     };
   }
