@@ -3,8 +3,6 @@ import { successHandler } from '../../libs/routes';
 
 class TraineeController {
 
-    private static instance: TraineeController;
-
     public get(req: Request, res: Response) {
         const data = [
             {
@@ -14,7 +12,7 @@ class TraineeController {
                 name: 'trainee2',
             },
         ];
-        res.status(200).send(successHandler('Successfully fetch trainees', data));
+        res.status(200).send(successHandler('Successfully fetch trainees', 200, data));
         console.log('Successfully get Trainees');
     }
 
@@ -28,7 +26,7 @@ class TraineeController {
         } else {
             res
                 .status(200)
-                .send(successHandler('Successfully Created Trainee', data));
+                .send(successHandler('Successfully Created Trainee', 200, data));
         }
     }
 
@@ -40,7 +38,7 @@ class TraineeController {
         } else {
             res
                 .status(200)
-                .send(successHandler('Successfully Updated Trainee', data));
+                .send(successHandler('Successfully Updated Trainee', 200, data));
         }
     }
 
@@ -48,7 +46,7 @@ class TraineeController {
         const id = req.params.id;
         res
             .status(200)
-            .send(successHandler(`Successfully Deleted ${id} Trainee`, ''));
+            .send(successHandler(`Successfully Deleted ${id} Trainee`, 200, ''));
     }
 }
 export default new TraineeController();

@@ -1,14 +1,15 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import { errorHandler, notFoundRoute, successHandler } from './libs/routes';
+import { errorHandler, notFoundRoute } from './libs/routes';
 
+import { IConfig } from './config/IConfig';
 import Database from './libs/Database';
 import router from './router';
 
 export class Server {
     private app: express.Express;
 
-    constructor(private config) {
+    constructor(private config: IConfig) {
         this.app = express();
         console.log('in the constructor');
     }

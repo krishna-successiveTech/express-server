@@ -12,7 +12,6 @@ export default (moduleName, permissionType) => (
     const token = req.header('Authorization');
     const { key } = configuration;
     const user = jwt.verify(token, key);
-    console.log(user);
     if (user) {
         const role = user.role;
         if (hasPermission(moduleName, role, permissionType)) {
