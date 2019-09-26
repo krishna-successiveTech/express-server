@@ -7,6 +7,7 @@ class UserController {
     public get(req: Request, res: Response) {
         const user = new UserRepository();
         const { id } = req.query;
+        console.log(req);
         user.getUser({ _id: id })
             .then((data) => {
                 res.status(200).send(successHandler('User Data', 200, data));

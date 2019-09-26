@@ -21,29 +21,16 @@ export default class UserRepository {
         });
     }
 
-    public delete(data: any): any {
-        return this.model.deleteOne(data, (err) => {
-            if (err) {
-                console.log('Error');
-            }
-        });
+    public delete(data: any) {
+        return this.model.deleteOne(data);
     }
 
     public updateUser(oldData: any, newData: any) {
-        return this.model.updateOne(oldData, newData, (err) => {
-            if (err) {
-                console.log('Error');
-            }
-        },
-        );
+        return this.model.updateOne(oldData, newData);
     }
 
-    public getUser(data) {
-        return this.model.find(data, (err) => {
-            if (err) {
-                console.log('err');
-            }
-        });
+    public getUser(data: any) {
+        return this.model.find(data);
     }
 
     public count() {
