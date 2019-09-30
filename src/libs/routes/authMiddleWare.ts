@@ -16,6 +16,7 @@ export default (moduleName, permissionType) => (
     const userRepository = new UserRepository();
     userRepository.findone({ _id : user._id})
         .then((userData) => {
+            console.log('huhuhuh', userData);
             if (!userData) {
                 next({
                     error: 'Unauthorized Access',
@@ -29,7 +30,7 @@ export default (moduleName, permissionType) => (
                   });
             }
             else {
-                req.query = userData.id;
+                req.query = userData._id;
                 next();
             }
         })

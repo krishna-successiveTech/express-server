@@ -1,44 +1,26 @@
 import * as mongoose from 'mongoose';
+import VersionableRepository from '../versionable/VersionableRepository';
 import IUserModel from './IUserModel';
 import { userModel } from './UserModel';
-export default class UserRepository {
-
-    public static generateObjectId() {
-        // console.log(mongoose.Types.ObjectId());
-        return String(mongoose.Types.ObjectId());
-    }
-
-    private model: mongoose.Model<IUserModel>;
+export default class UserRepository extends VersionableRepository<IUserModel, mongoose.Model<IUserModel>> {
 
     constructor() {
-        this.model = userModel;
+        super(userModel);
     }
 
-    public createUser(data: any): Promise<IUserModel> {
-        return this.model.create({
-            ...data,
-            _id: UserRepository.generateObjectId(),
-        });
-    }
-
-    public delete(data: any) {
-        return this.model.deleteOne(data);
-    }
-
-    public updateUser(oldData: any, newData: any) {
-        return this.model.updateOne(oldData, newData);
-    }
-
-    public getUser(data: any) {
-        return this.model.findOne(data);
-    }
-
-    public count() {
-        return this.model.estimatedDocumentCount();
-    }
-
-    public findone(query) {
-        console.log('query', query);
-        return this.model.findOne(query);
-    }
+    public createUser(data) {
+        return super.createUser(data);
+      }
+      public updateUser(data) {
+        return super.update(data);
+      }
+      public deleteData(data) {
+        return super.delete(data);
+      }
+      public findone(data) {
+        return super.findOne(data);
+      }
+      public countData( ) {
+        return super.count( );
+      }
 }

@@ -11,7 +11,7 @@ class UserController {
 
     public get(req: Request, res: Response) {
         const { _id } = req.query;
-        user.getUser(_id )
+        user.getUser(_id)
             .then((data) => {
                 res.status(200).send(successHandler('User Data', 200, data));
             });
@@ -26,11 +26,11 @@ class UserController {
     }
 
     public update(req: Request, res: Response) {
-        const { oldName, newName } = req.query;
-        user.updateUser(oldName, newName)
-            .then((data) => {
-                res.status(200).send(successHandler('User Updated', 200, data));
-            });
+        const { id, newName } = req.query;
+        user.updateUser({ _id: id, name: newName }).then((data) => {
+            res.status(200).send(successHandler('USer Updated', 200, data));
+            console.log('User Updated ');
+        });
     }
 
     public remove(req: Request, res: Response) {
