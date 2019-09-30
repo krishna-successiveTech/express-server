@@ -1,19 +1,29 @@
+import { validateEmail } from '../../../extraTs/utils/helper';
+
 const validation = {
   create: {
-    id: {
-      custom: { function(value) {
-        console.log('Value', value);
-      }} ,
+    email: {
+      custom: (email: string) => {
+        if (!validateEmail(email)) {
+          throw new Error('Please enter email correct format');
+        }
+      },
+      errorMessage: 'Email is required',
       in: ['body'],
       required: true,
       string: true,
     },
-    name: {
-      errorMessage: 'Name is required',
+    id: {
+      custom: {
+        function(value) {
+          console.log('Value', value);
+        },
+      },
       in: ['body'],
-      regex: /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
       required: true,
+      string: true,
     },
+
   },
   delete: {
     id: {
@@ -38,11 +48,36 @@ const validation = {
       required: false,
     },
   },
+  login: {
+    email: {
+      custom: (email: string) => {
+        if (!validateEmail(email)) {
+          throw new Error('Please enter email correct format');
+        }
+      },
+      errorMessage: 'Email is required',
+      in: ['body'],
+      required: true,
+      string: true,
+    },
+    password: {
+      custom: {
+        function(value) {
+          console.log('Value', value);
+        },
+      },
+      in: ['body'],
+      required: true,
+      string: true,
+    },
+  },
   update: {
     dataToUpdate: {
-      custom: {function(dataToUpdate) {
-        console.log('Inside DataToUpdate');
-      }},
+      custom: {
+        function(dataToUpdate) {
+          console.log('Inside DataToUpdate');
+        },
+      },
       in: ['body'],
       isObject: true,
       required: true,

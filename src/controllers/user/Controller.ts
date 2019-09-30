@@ -1,14 +1,17 @@
+import * as bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
+import configuration from '../../config/configuration';
 import { successHandler } from '../../libs/routes';
 import UserRepository from '../../repositories/user/UserRepository';
+
+const user = new UserRepository();
 
 class UserController {
 
     public get(req: Request, res: Response) {
-        const user = new UserRepository();
-        const { id } = req.query;
-        console.log(req);
-        user.getUser({ _id: id })
+        const { _id } = req.query;
+        user.getUser(_id )
             .then((data) => {
                 res.status(200).send(successHandler('User Data', 200, data));
             });
@@ -16,8 +19,6 @@ class UserController {
 
     public create(req: Request, res: Response) {
         const { id, name } = req.body;
-        console.log(req.body);
-        const user = new UserRepository();
         user.createUser({ id, name })
             .then((data) => {
                 res.status(200).send(successHandler('User Created', 200, data));
@@ -26,7 +27,6 @@ class UserController {
 
     public update(req: Request, res: Response) {
         const { oldName, newName } = req.query;
-        const user = new UserRepository();
         user.updateUser(oldName, newName)
             .then((data) => {
                 res.status(200).send(successHandler('User Updated', 200, data));
@@ -35,10 +35,34 @@ class UserController {
 
     public remove(req: Request, res: Response) {
         const { id } = req.params.id;
-        const user = new UserRepository();
         user.delete(id)
             .then((data) => {
                 res.status(200).send(successHandler('User Removed', 200, data));
+            });
+    }
+
+    public login(req: Request, res: Response, next: NextFunction) {
+        const { email } = req.body;
+        console.log('Inside User Controller Login');
+        user.getUser({ email })
+            .then((userData) => {
+                if (!userData) {
+                    next({ err: 'Not Found', status: 404, message: 'Route Not Found' });
+                }
+
+                const { password } = userData;
+                if (!bcrypt.compareSync(req.body.password, password)) {
+                    next('Password does not match');
+                }
+                const token = jwt.sign(userData.toJSON(), configuration.key, {
+                    expiresIn: 3600,
+                });
+                res.send({
+                    data: token,
+                    message: 'login successfully',
+                    status: 200,
+
+                });
             });
     }
 }

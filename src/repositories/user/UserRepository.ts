@@ -4,7 +4,7 @@ import { userModel } from './UserModel';
 export default class UserRepository {
 
     public static generateObjectId() {
-        console.log(mongoose.Types.ObjectId());
+        // console.log(mongoose.Types.ObjectId());
         return String(mongoose.Types.ObjectId());
     }
 
@@ -30,7 +30,7 @@ export default class UserRepository {
     }
 
     public getUser(data: any) {
-        return this.model.find(data);
+        return this.model.findOne(data);
     }
 
     public count() {
@@ -38,6 +38,7 @@ export default class UserRepository {
     }
 
     public findone(query) {
+        console.log('query', query);
         return this.model.findOne(query);
     }
 }

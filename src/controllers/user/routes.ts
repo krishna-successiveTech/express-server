@@ -7,7 +7,7 @@ import validation from './validation';
 
 const userRoute: Router = Router();
 
-console.log('Inside User Routes');
+console.log('Inside User routes');
 
 userRoute.get('/get', validationHandler(validation.get),
 authMiddleWare(TRAINEEE, 'read'), Controller.get);
@@ -20,5 +20,9 @@ authMiddleWare(TRAINEEE, 'update'), Controller.update);
 
 userRoute.delete('/remove/:id', validationHandler(validation.delete),
 authMiddleWare(TRAINEEE, 'delete'), Controller.remove);
+
+userRoute.post('/login', validationHandler(validation.login), Controller.login);
+
+userRoute.get('/me', validationHandler(validation.get), authMiddleWare(TRAINEEE, 'read'), Controller.get);
 
 export default userRoute;

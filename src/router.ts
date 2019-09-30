@@ -4,6 +4,8 @@ import { userRoutes } from './controllers/user';
 
 const router: Router = Router();
 
+console.log('Inside initial routes');
+
 router.use('/trainee', traineeRoutes);
 
 router.use('/user', userRoutes);
