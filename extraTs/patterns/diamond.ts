@@ -17,11 +17,11 @@ export default function diamond(rows: number): void {
   }
 
   let pattern2: string = '';
-  for (let i = rows; i >= 1; i--) {
-    for (let j = i; j <= rows - 1; j++) {
+  for (i  = rows; i >= 1; i--) {
+    for ( j = i; j <= rows - 1; j++) {
       pattern2 += ' ';
     }
-    for (let k = 1; k <= i; k++) {
+    for ( k = 1; k <= i; k++) {
       pattern2 += '*';
       pattern2 += ' ';
     }
