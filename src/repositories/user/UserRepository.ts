@@ -8,19 +8,19 @@ export default class UserRepository extends VersionableRepository<IUserModel, mo
         super(userModel);
     }
 
-    public createUser(data) {
-        return super.createUser(data);
+    public async createUser(data) {
+        return await super.createUser(data);
       }
-      public updateUser(data) {
-        return super.update(data);
+      public async updateUser(data) {
+        return await super.update(data);
       }
-      public deleteData(data) {
-        return super.delete(data);
+      public async deleteData(data) {
+        return await super.delete(data);
       }
-      public findone(data) {
-        return super.findOne(data);
+      public async findone(data) {
+        return await super.findOne(data);
       }
-      public countData( ) {
-        return super.count( );
+      public async countData( ) {
+        return await super.count( );
       }
 }

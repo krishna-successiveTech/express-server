@@ -4,7 +4,7 @@ import configuration from '../../config/configuration';
 import UserRepository from '../../repositories/user/UserRepository';
 import hasPermission from './hasPermission';
 
-export default (moduleName, permissionType) => (
+export default (moduleName, permissionType) => async (
     req: Request,
     res: Response,
     next: NextFunction,
@@ -14,31 +14,21 @@ export default (moduleName, permissionType) => (
     const { key } = configuration;
     const user = jwt.verify(token, key);
     const userRepository = new UserRepository();
-    userRepository.findone({ _id : user._id})
-        .then((userData) => {
-            console.log('huhuhuh', userData);
-            if (!userData) {
-                next({
-                    error: 'Unauthorized Access',
-                    message: 'User not match',
-                    status: 403,
-                  });
-            }
-            else if (!hasPermission(moduleName, userData.role, permissionType)) {
-                next({
-                    message: `${permissionType} Permission is not allowed.`, status: 400,
-                  });
-            }
-            else {
-                req.query = userData._id;
-                next();
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-            next({
-                error: err,
-                message: 'User is not found',
-                status: 400 });
+    const userData = await userRepository.findone({ _id: user._id });
+    if (!userData) {
+        next({
+            error: 'Unauthorized Access',
+            message: 'User not match',
+            status: 403,
         });
+    }
+    else if (!hasPermission(moduleName, userData.role, permissionType)) {
+        next({
+            message: `${permissionType} Permission is not allowed.`, status: 400,
+        });
+    }
+    else {
+        req.query = userData._id;
+        next();
+    }
 };
